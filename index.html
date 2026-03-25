@@ -29,10 +29,10 @@
     <!-- Header -->
     <div class="text-center mb-8">
         <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2 flex justify-center items-center gap-2">
-            <i data-lucide="shield-check" class="text-blue-600"></i> 台灣進口車成本計算機
+            <i data-lucide="shield-check" class="text-blue-600"></i> 進口車成本計算機
         </h1>
         <div class="flex flex-col items-center gap-1">
-            <p class="text-slate-500 text-xs md:text-sm">成本即時試算</p>
+            <p class="text-slate-500 text-xs md:text-sm">成本即時試算系統</p>
             <div id="apiStatus" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-500 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> 正在獲取即時匯率...
             </div>
@@ -64,7 +64,7 @@
                     <div class="input-group">
                         <label class="block text-xs md:text-sm font-medium text-slate-600 mb-1">匯率 (對台幣)</label>
                         <div class="relative">
-                            <input type="number" id="exchangeRate" value="32.55" step="0.0001" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
+                            <input type="number" id="exchangeRate" value="32.55" step="0.0001" inputmode="decimal" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
                             <div id="rateUpdateLabel" class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold hidden md:block">
                                 API
                             </div>
@@ -75,15 +75,15 @@
                     <div class="input-group">
                         <label class="block text-xs md:text-sm font-medium text-slate-600 mb-1">引擎排氣量級距</label>
                         <select id="displacementGrade" class="calc-trigger w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all cursor-pointer">
-                            <option value="2000">2000cc 以下 </option>
-                            <option value="2001">2001cc 以上 </option>
+                            <option value="2000">2000cc 以下 (貨物稅 25%)</option>
+                            <option value="2001">2001cc 以上 (貨物稅 30%)</option>
                         </select>
                     </div>
 
                     <!-- Shipping -->
                     <div class="input-group">
                         <label class="block text-xs md:text-sm font-medium text-slate-600 mb-1">運費預估 (USD)</label>
-                        <input type="number" id="shippingUSD" value="1200" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
+                        <input type="number" id="shippingUSD" value="1200" inputmode="decimal" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
                     </div>
                 </div>
             </div>
@@ -96,11 +96,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="input-group">
                         <label class="block text-xs md:text-sm font-medium text-slate-600 mb-1">驗車費預估 (含報告授權)</label>
-                        <input type="number" id="inspectionFee" value="0" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
+                        <input type="number" id="inspectionFee" value="0" inputmode="decimal" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
                     </div>
                     <div class="input-group">
                         <label class="block text-xs md:text-sm font-medium text-slate-600 mb-1">報關/雜項/保險</label>
-                        <input type="number" id="miscFee" value="0" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
+                        <input type="number" id="miscFee" value="0" inputmode="decimal" class="calc-trigger num-only w-full bg-slate-50 border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all font-mono">
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 </h2>
                 <div class="relative max-w-md mx-auto lg:mx-0">
                     <span id="priceLabel" class="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500 font-black text-sm">USD</span>
-                    <input type="number" id="fobPrice" placeholder="輸入金額..." class="calc-trigger num-only w-full bg-white border-2 border-blue-300 rounded-xl p-4 pl-16 focus:border-blue-500 outline-none transition-all text-2xl font-mono text-blue-900 shadow-inner">
+                    <input type="number" id="fobPrice" placeholder="輸入金額..." inputmode="decimal" class="calc-trigger num-only w-full bg-white border-2 border-blue-300 rounded-xl p-4 pl-16 focus:border-blue-500 outline-none transition-all text-2xl font-mono text-blue-900 shadow-inner">
                 </div>
                 <!-- 中文單位備註 -->
                 <div id="chinesePriceNote" class="mt-2 text-blue-700 text-sm font-bold min-h-[1.25rem] text-right max-w-md mx-auto lg:mx-0"></div>
@@ -175,8 +175,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 p-4 bg-white/5 rounded-xl text-[10px] md:text-xs text-slate-500 leading-relaxed italic border border-white/5">
-                    <p id="footerNote">※ 數據僅供參考。</p>
+                
                 </div>
             </div>
         </div>
